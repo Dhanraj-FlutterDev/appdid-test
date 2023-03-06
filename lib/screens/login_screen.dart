@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> verifyPhoneNumber(BuildContext context) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: userPhone.text.trim(),
+      phoneNumber: '+91' + userPhone.text.trim(),
       timeout: const Duration(seconds: 15),
       verificationCompleted: (AuthCredential authCredential) {
         setState(() {
@@ -114,8 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: userPhone,
+              maxLength: 10,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(hintText: 'Enter Phone'),
+              decoration:
+                  const InputDecoration(hintText: 'Enter 10 digit phone'),
             ),
           ),
           Center(
@@ -124,17 +126,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => Homescreen()));
 
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setString('Login', 'loggedIN');
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => Homescreen()),
-                    (route) => false);
-                // if (userPhone.text.isNotEmpty) {
-                //   verifyPhoneNumber(context);
-                // } else {
-                //   print('Enter Phone');
-                // }
+                // final prefs = await SharedPreferences.getInstance();
+                // prefs.setString('Login', 'loggedIN');
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => Homescreen()),
+                //     (route) => false);
+                if (userPhone.text.isNotEmpty) {
+                  verifyPhoneNumber(context);
+                } else {
+                  print('Enter Phone');
+                }
               },
               child: const Text('Login'),
             ),

@@ -3,6 +3,7 @@ import 'package:appdid_test/screens/meal_details_screen.dart';
 import 'package:appdid_test/screens/meals_screen.dart';
 import 'package:appdid_test/screens/search_screen.dart';
 import 'package:appdid_test/utils/api_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,13 @@ class _HomescreenState extends State<Homescreen> {
 
   bool isLoading = false;
   List categoriesList = [];
+  Future<void> _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   void initState() {
@@ -64,13 +72,14 @@ class _HomescreenState extends State<Homescreen> {
               },
               icon: const Icon(Icons.shuffle_on_outlined)),
           IconButton(
-              onPressed: () async {
-                SharedPreferences data = await SharedPreferences.getInstance();
-                data.clear();
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                    (route) => false);
+              onPressed: () {
+                _logout();
+                // SharedPreferences data = await SharedPreferences.getInstance();
+                // data.clear();
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => LoginScreen()),
+                //     (route) => false);
               },
               icon: const Icon(Icons.logout))
         ],

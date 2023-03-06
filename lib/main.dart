@@ -24,18 +24,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
-      // home: StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (ctx, userSnapshot) {
-      //     if (userSnapshot.hasData) {
-      //       return Homescreen();
-      //     } else if (userSnapshot.hasError) {
-      //       return CircularProgressIndicator();
-      //     }
-      //     return LoginScreen();
-      //   },
-      // ),
+      // home: SplashScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (userSnapshot.hasData) {
+            return Homescreen();
+          } else if (userSnapshot.hasError) {
+            return const CircularProgressIndicator();
+          }
+          return LoginScreen();
+        },
+      ),
     );
   }
 }

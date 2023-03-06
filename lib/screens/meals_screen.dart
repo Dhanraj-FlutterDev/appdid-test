@@ -75,7 +75,7 @@ class _MealsScreenState extends State<MealsScreen> {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
                           child: SizedBox(
-                            height: 150,
+                            height: 140,
                             width: double.infinity,
                             child: Image.network(
                               '${mealsList[index]['strMealThumb']}',
@@ -83,12 +83,14 @@ class _MealsScreenState extends State<MealsScreen> {
                             ),
                           ),
                         ),
-                        Center(
-                          child: Text(
-                            '${mealsList[index]['strMeal']}',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                        Flexible(
+                          child: Center(
+                            child: Text(
+                              '${mealsList[index]['strMeal']}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         )
                       ],
